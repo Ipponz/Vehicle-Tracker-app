@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Add Vehicle</h1>
+
+<form method="post" class="mt-3">
+  <div class="mb-3">
+    <label for="reg" class="form-label">Registration</label>
+    <input type="text" id="reg" name="reg" class="form-control" required>
+  </div>
+
+  <div class="mb-3">
+    <label for="location" class="form-label">Location</label>
+    <select id="location" name="location" class="form-select" required>
+      {% for loc in locations %}
+      <option value="{{ loc }}">{{ loc }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label for="moved_by" class="form-label">Moved By</label>
+    <input type="text" id="moved_by" name="moved_by" class="form-control" required>
+  </div>
+
+  <button type="submit" class="btn btn-success">Add Vehicle</button>
+  <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}

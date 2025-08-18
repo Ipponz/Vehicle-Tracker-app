@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Vehicle Tracker</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='custom.css') }}">
+
+    <!-- Badge Colors -->
+    <!-- Badge Colors -->
+<style>
+  .bg-primary { background-color: #0d6efd; color: white; }
+  .bg-secondary { background-color: #6c757d; color: white; }
+  .bg-success { background-color: #198754; color: white; }
+  .bg-danger { background-color: #dc3545; color: white; }
+  .bg-warning { background-color: #ffc107; color: black; }
+  .bg-info { background-color: #0dcaf0; color: black; }
+  .bg-dark { background-color: #212529; color: white; }
+
+  /* Your custom extras */
+  .bg-purple { background-color: #6f42c1; color: white; }
+  .bg-teal { background-color: #20c997; color: white; }
+  .bg-pink { background-color: #e83e8c; color: white; }
+  .bg-orange { background-color: #fd7e14; color: white; }
+  .bg-brown { background-color: #795548; color: white; }
+  .bg-lime { background-color: #cddc39; color: black; }
+  .bg-indigo { background-color: #6610f2; color: white; }
+  .bg-cyan { background-color: #17a2b8; color: white; }
+</style>
+
+
+    <!-- PWA manifest -->
+<link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+<meta name="theme-color" content="#0d6efd">
+
+<!-- Mobile web app capability -->
+<meta name="mobile-web-app-capable" content="yes"> <!-- For Chrome/Android -->
+<meta name="apple-mobile-web-app-capable" content="yes"> <!-- For iOS -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Vehicle Tracker">
+<link rel="apple-touch-icon" href="/static/icons/icon-left-192.png">
+
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{{ url_for('dashboard') }}">Vehicle Tracker</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('add_vehicle') }}">Add Vehicle</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('add_location') }}">Manage Locations</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mt-4">
+      {% block content %}{% endblock %}
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Service Worker Registration -->
+    <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js?v={{ time() }}')
+      .then(reg => console.log('Service Worker registered:', reg))
+      .catch(err => console.log('Service Worker registration failed:', err));
+  }
+</script>
+
+  </body>
+</html>

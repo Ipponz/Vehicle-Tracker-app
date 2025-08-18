@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Dashboard</h1>
+
+{# 
+<form method="post" action="{{ url_for('rebuild_data') }}" style="margin-bottom:15px;">
+  <button type="submit" class="btn btn-warning">Rebuild Data</button>
+</form>
+#}
+
+<form method="get" class="mb-3">
+  <input type="text" name="search" value="{{ search }}" placeholder="Search by registration" class="form-control">
+</form>
+
+<div class="table-responsive">
+<table class="table table-bordered">
+  <thead class="table-dark">
+    <tr>
+      <th>Registration</th>
+      <th>Location</th>
+      <th>Moved By</th>
+      <th>Moved At</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for v in vehicles %}
+    <tr>
+      <td>{{ v.reg }}</td>
+      <td>
+        {% if v.location %}
+          <span class="badge bg-{{ location_colors.get(v.location, 'secondary') }}">
+            {{ v.location }}
+          </span>
+        {% else %}
+          <span class="badge bg-secondary">Unknown</span>
+        {% endif %}
+      </td>
+      <td>{{ v.moved_by }}</td>
+      <td>{{ v.moved_at }}</td>
+      <td>
+        <a href="{{ url_for('move_vehicle', reg=v.reg) }}" class="btn btn-sm btn-primary">Move</a>
+        <form method="post" action="{{ url_for('delete_vehicle', reg=v.reg) }}" style="display:inline;" onsubmit="return confirm('Delete this vehicle?');">
+          <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endblock %}
